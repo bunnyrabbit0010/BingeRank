@@ -4,7 +4,7 @@ from databases import Database
 import sqlalchemy
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:Binger@nk-dev@db.tfsagqekvebxrbjxxdhe.supabase.co:5432/postgres")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Create an async database connection
 database = Database(DATABASE_URL)

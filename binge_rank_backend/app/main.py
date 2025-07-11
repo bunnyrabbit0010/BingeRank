@@ -5,13 +5,23 @@ from fastapi import FastAPI
 import pg8000.native
 import ssl
 from urllib.parse import urlparse
-from app.db import database, users
-#from dotenv import load_dotenv
-#import os
+from dotenv import load_dotenv
+from databases import Database
+import os
+from app.db import users
 
-#load_dotenv()
-#TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+# Load environment variables from .env
+load_dotenv()
 
+# Get database URL
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+# Create the Database object
+database = Database(DATABASE_URL)
+
+# Import and pass database to other modules
+from . import db
+db.init(database)  # <-- inject the instance
 
 
 app = FastAPI()

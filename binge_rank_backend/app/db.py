@@ -1,15 +1,17 @@
-# app/db.py
-
 from databases import Database
 import sqlalchemy
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-# Create an async database connection
+# Use the transaction pooler URL from environment for IPv4 compatibility
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql://postgres.tfsagqekvebxrbjxxdhe:FSacOoliZZbDqgYv@aws-0-us-east-2.pooler.supabase.com:6543/postgres"
+)
+ 
+# Create an async database connection instance
 database = Database(DATABASE_URL)
 
-# Metadata and table definition (optional but helpful)
+# SQLAlchemy metadata for table definitions (optional)
 metadata = sqlalchemy.MetaData()
 
 users = sqlalchemy.Table(
